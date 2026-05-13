@@ -69,11 +69,11 @@
                 "headers": [
                     {
                         "name": "apikey",
-                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                        "value": "{{SUPABASE_SERVICE_ROLE_KEY}}"
                     },
                     {
                         "name": "Authorization",
-                        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                        "value": "Bearer {{SUPABASE_SERVICE_ROLE_KEY}}"
                     }
                 ],
                 "timeout": "",
@@ -125,11 +125,11 @@
                 "headers": [
                     {
                         "name": "apikey",
-                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                        "value": "{{SUPABASE_SERVICE_ROLE_KEY}}"
                     },
                     {
                         "name": "Authorization",
-                        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                        "value": "Bearer {{SUPABASE_SERVICE_ROLE_KEY}}"
                     }
                 ],
                 "timeout": "",
@@ -189,7 +189,7 @@
             "mapper": {
                 "ca": "",
                 "qs": [],
-                "url": "https://api.telegram.org/bot8750507518:AAH_OZ2jyoX4CnYwb8YN3UnF3oiiXqxSvUM/sendMessage",
+                "url": "https://api.telegram.org/bot{{TELEGRAM_BOT_TOKEN}}/sendMessage",
                 "data": "{{'{\"chat_id\":\"' + 2.data[1].telegram_chat_id + '\",\"text\":\"📌 Yeni Görev Atandı\\n\\n📋 Görev: ' + replace(replace(1.data[1].mail_subject; '\"'; '\\\\\"'); newline; ' ') + '\\n📧 Gönderen: ' + replace(1.data[1].mail_sender; '\"'; '\\\\\"') + '\\n👷 Atanan: ' + replace(2.data[1].full_name; '\"'; '\\\\\"') + '\\n🏢 Departman: ' + replace(1.data[1].departments.name; '\"'; '\\\\\"') + '\\n⚡ Aciliyet: ' + upper(1.data[1].urgency) + '\\n📅 Deadline: ' + if(lower(1.data[1].urgency) = \"high\"; formatDate(addDays(now; 1); \"DD.MM.YYYY\"); if(lower(1.data[1].urgency) = \"medium\"; formatDate(addDays(now; 3); \"DD.MM.YYYY\"); formatDate(addDays(now; 7); \"DD.MM.YYYY\"))) + '\\n\\n👤 Neden sen?\\n' + replace(replace(1.data[1].assignment_reason; '\"'; '\\\\\"'); newline; ' ') + '\\n\\n✅ Google Takvime eklendi\"}'}}",
                 "gzip": true,
                 "method": "post",
@@ -238,11 +238,11 @@
                 "headers": [
                     {
                         "name": "apikey",
-                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                        "value": "{{SUPABASE_SERVICE_ROLE_KEY}}"
                     },
                     {
                         "name": "Authorization",
-                        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                        "value": "Bearer {{SUPABASE_SERVICE_ROLE_KEY}}"
                     },
                     {
                         "name": "Content-Type",
