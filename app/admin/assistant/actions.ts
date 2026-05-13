@@ -20,8 +20,8 @@ async function getContext(): Promise<string> {
     .order('full_name')
 
   const taskLines = (tasks ?? []).map((t) => {
-    const dept = (t.departments as { name: string } | null)?.name ?? 'N/A'
-    const assignee = (t.team_members as { full_name: string } | null)?.full_name ?? 'Unassigned'
+    const dept = (t.departments as unknown as { name: string } | null)?.name ?? 'N/A'
+    const assignee = (t.team_members as unknown as { full_name: string } | null)?.full_name ?? 'Unassigned'
     const deadline = t.deadline ? new Date(t.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'No deadline'
     return `- [${t.status.toUpperCase()}] "${t.mail_subject}" | Priority: ${t.urgency} | Dept: ${dept} | Assignee: ${assignee} | Deadline: ${deadline}`
   }).join('\n')
