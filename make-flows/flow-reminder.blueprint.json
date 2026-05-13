@@ -1,0 +1,206 @@
+{
+    "name": "flow-reminder",
+    "flow": [
+        {
+            "id": 1,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "ca": "",
+                "qs": [],
+                "url": "https://evspxdzrsrkbflkabbxi.supabase.co/rest/v1/tasks?status=eq.assigned&reminded_at=is.null&select=id,mail_subject,mail_sender,summary,urgency,assigned_to,departments(name)",
+                "gzip": true,
+                "method": "get",
+                "headers": [
+                    {
+                        "name": "apikey",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                    },
+                    {
+                        "name": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                    }
+                ],
+                "timeout": "",
+                "useMtls": false,
+                "authPass": "",
+                "authUser": "",
+                "bodyType": "",
+                "serializeUrl": false,
+                "shareCookies": false,
+                "parseResponse": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                }
+            }
+        },
+        {
+            "id": 3,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "ca": "",
+                "qs": [],
+                "url": "https://evspxdzrsrkbflkabbxi.supabase.co/rest/v1/team_members?id=eq.{{1.data[1].assigned_to}}&select=id,full_name,telegram_chat_id",
+                "gzip": true,
+                "method": "get",
+                "headers": [
+                    {
+                        "name": "apikey",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                    },
+                    {
+                        "name": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                    }
+                ],
+                "timeout": "",
+                "useMtls": false,
+                "authPass": "",
+                "authUser": "",
+                "bodyType": "",
+                "serializeUrl": false,
+                "shareCookies": false,
+                "parseResponse": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                }
+            }
+        },
+        {
+            "id": 4,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "ca": "",
+                "qs": [],
+                "url": "https://api.telegram.org/bot8750507518:AAH_OZ2jyoX4CnYwb8YN3UnF3oiiXqxSvUM/sendMessage",
+                "data": "{\"chat_id\":\"{{3.data[1].telegram_chat_id}}\",\"text\":\"⏰ Deadline Hatırlatması!\\n\\n📌 Görev: {{1.data[1].summary}}\\n📧 Gönderen: {{1.data[1].mail_sender}}\\n⚡ Aciliyet: {{upper(1.data[1].urgency)}}\\n🏢 Departman: {{1.data[1].departments.name}}\\n\\n⚠️ Görevin tamamlanması gerekiyor. Tamamlamayı unutma.\"}",
+                "gzip": true,
+                "method": "post",
+                "headers": [
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "timeout": "",
+                "useMtls": false,
+                "authPass": "",
+                "authUser": "",
+                "bodyType": "raw",
+                "contentType": "application/json",
+                "serializeUrl": false,
+                "shareCookies": false,
+                "parseResponse": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 0
+                }
+            }
+        },
+        {
+            "id": 5,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "ca": "",
+                "qs": [],
+                "url": "https://evspxdzrsrkbflkabbxi.supabase.co/rest/v1/rpc/update_reminded_at",
+                "data": "{\"task_id\":\"{{1.data[1].id}}\"}",
+                "gzip": true,
+                "method": "post",
+                "headers": [
+                    {
+                        "name": "apikey",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                    },
+                    {
+                        "name": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "timeout": "",
+                "useMtls": false,
+                "authPass": "",
+                "authUser": "",
+                "bodyType": "raw",
+                "contentType": "application/json",
+                "serializeUrl": false,
+                "shareCookies": false,
+                "parseResponse": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 900,
+                    "y": 0
+                }
+            }
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu2.make.com",
+        "notes": []
+    }
+}

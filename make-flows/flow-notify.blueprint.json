@@ -1,0 +1,299 @@
+{
+    "name": "flow-notify",
+    "flow": [
+        {
+            "id": 10,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 4119670,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "label": "flow-notify-trigger",
+                            "data": {
+                                "editable": "true"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 1,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "filter": {
+                "name": "task_id bos degil?",
+                "conditions": [
+                    [
+                        {
+                            "a": "{{length(10.task_id)}}",
+                            "b": "36",
+                            "o": "number:equal"
+                        }
+                    ]
+                ]
+            },
+            "mapper": {
+                "ca": "",
+                "qs": [],
+                "url": "https://evspxdzrsrkbflkabbxi.supabase.co/rest/v1/tasks?id=eq.{{10.task_id}}&select=id,mail_subject,mail_sender,mail_body,summary,urgency,required_skill,assigned_to,assignment_reason,status,deadline,departments(name)&limit=1",
+                "gzip": true,
+                "method": "get",
+                "headers": [
+                    {
+                        "name": "apikey",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                    },
+                    {
+                        "name": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                    }
+                ],
+                "timeout": "",
+                "useMtls": false,
+                "authPass": "",
+                "authUser": "",
+                "bodyType": "",
+                "serializeUrl": false,
+                "shareCookies": false,
+                "parseResponse": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                }
+            }
+        },
+        {
+            "id": 2,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "filter": {
+                "name": "assigned_to gecerli UUID?",
+                "conditions": [
+                    [
+                        {
+                            "a": "{{length(1.data[1].assigned_to)}}",
+                            "b": "36",
+                            "o": "number:equal"
+                        }
+                    ]
+                ]
+            },
+            "mapper": {
+                "ca": "",
+                "qs": [],
+                "url": "https://evspxdzrsrkbflkabbxi.supabase.co/rest/v1/team_members?id=eq.{{1.data[1].assigned_to}}&select=id,full_name,email,telegram_chat_id",
+                "gzip": true,
+                "method": "get",
+                "headers": [
+                    {
+                        "name": "apikey",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                    },
+                    {
+                        "name": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                    }
+                ],
+                "timeout": "",
+                "useMtls": false,
+                "authPass": "",
+                "authUser": "",
+                "bodyType": "",
+                "serializeUrl": false,
+                "shareCookies": false,
+                "parseResponse": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 0
+                }
+            }
+        },
+        {
+            "id": 5,
+            "module": "google-calendar:createAnEvent",
+            "version": 5,
+            "parameters": {
+                "__IMTCONN__": 14191753
+            },
+            "mapper": {
+                "end": "{{if(lower(1.data[1].urgency) = \"high\"; formatDate(addDays(now; 1); \"YYYY-MM-DD\"); if(lower(1.data[1].urgency) = \"medium\"; formatDate(addDays(now; 3); \"YYYY-MM-DD\"); formatDate(addDays(now; 7); \"YYYY-MM-DD\")))}}",
+                "start": "{{if(lower(1.data[1].urgency) = \"high\"; formatDate(addDays(now; 1); \"YYYY-MM-DD\"); if(lower(1.data[1].urgency) = \"medium\"; formatDate(addDays(now; 3); \"YYYY-MM-DD\"); formatDate(addDays(now; 7); \"YYYY-MM-DD\")))}}",
+                "select": "detail",
+                "summary": "{{1.data[1].mail_subject}}",
+                "calendar": "fcesitler@gmail.com",
+                "visibility": "default",
+                "allDayEvent": false,
+                "description": "Gönderen: {{1.data[1].mail_sender}}\nNeden sen: {{1.data[1].assignment_reason}}\nNe yapılmalı: {{1.data[1].summary}}",
+                "transparency": "opaque",
+                "conferenceDate": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 900,
+                    "y": 0
+                }
+            }
+        },
+        {
+            "id": 3,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "ca": "",
+                "qs": [],
+                "url": "https://api.telegram.org/bot8750507518:AAH_OZ2jyoX4CnYwb8YN3UnF3oiiXqxSvUM/sendMessage",
+                "data": "{{'{\"chat_id\":\"' + 2.data[1].telegram_chat_id + '\",\"text\":\"📌 Yeni Görev Atandı\\n\\n📋 Görev: ' + replace(replace(1.data[1].mail_subject; '\"'; '\\\\\"'); newline; ' ') + '\\n📧 Gönderen: ' + replace(1.data[1].mail_sender; '\"'; '\\\\\"') + '\\n👷 Atanan: ' + replace(2.data[1].full_name; '\"'; '\\\\\"') + '\\n🏢 Departman: ' + replace(1.data[1].departments.name; '\"'; '\\\\\"') + '\\n⚡ Aciliyet: ' + upper(1.data[1].urgency) + '\\n📅 Deadline: ' + if(lower(1.data[1].urgency) = \"high\"; formatDate(addDays(now; 1); \"DD.MM.YYYY\"); if(lower(1.data[1].urgency) = \"medium\"; formatDate(addDays(now; 3); \"DD.MM.YYYY\"); formatDate(addDays(now; 7); \"DD.MM.YYYY\"))) + '\\n\\n👤 Neden sen?\\n' + replace(replace(1.data[1].assignment_reason; '\"'; '\\\\\"'); newline; ' ') + '\\n\\n✅ Google Takvime eklendi\"}'}}",
+                "gzip": true,
+                "method": "post",
+                "headers": [
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "timeout": "",
+                "useMtls": false,
+                "authPass": "",
+                "authUser": "",
+                "bodyType": "raw",
+                "contentType": "application/json",
+                "serializeUrl": false,
+                "shareCookies": false,
+                "parseResponse": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1200,
+                    "y": 0
+                }
+            }
+        },
+        {
+            "id": 4,
+            "module": "http:ActionSendData",
+            "version": 3,
+            "parameters": {
+                "handleErrors": true,
+                "useNewZLibDeCompress": true
+            },
+            "mapper": {
+                "ca": "",
+                "qs": [],
+                "url": "https://evspxdzrsrkbflkabbxi.supabase.co/rest/v1/tasks?id=eq.{{1.data[1].id}}",
+                "data": "{{'{\"status\":\"assigned\",\"calendar_event_id\":\"' + 5.id + '\"}'}}",
+                "gzip": true,
+                "method": "patch",
+                "headers": [
+                    {
+                        "name": "apikey",
+                        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                    },
+                    {
+                        "name": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV2c3B4ZHpyc3JrYmZsa2FiYnhpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODUyNzA0MCwiZXhwIjoyMDk0MTAzMDQwfQ.vh5TcxOG2IjRF1rRkv_hO619aHuAuQfEaMrC9tHYuS8"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "value": "application/json"
+                    },
+                    {
+                        "name": "Prefer",
+                        "value": "return=representation"
+                    }
+                ],
+                "timeout": "",
+                "useMtls": false,
+                "authPass": "",
+                "authUser": "",
+                "bodyType": "raw",
+                "contentType": "application/json",
+                "serializeUrl": false,
+                "shareCookies": false,
+                "parseResponse": true,
+                "followRedirect": true,
+                "useQuerystring": false,
+                "followAllRedirects": false,
+                "rejectUnauthorized": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1500,
+                    "y": 0
+                }
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu2.make.com",
+        "notes": []
+    }
+}
