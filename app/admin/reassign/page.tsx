@@ -6,11 +6,15 @@ export default async function ReassignPage() {
 
   const { data: tasksRaw } = await supabase
     .from('tasks')
-    .select('id, mail_subject, status')
+    .select('id, mail_subject, status, team_members(full_name)')
     .neq('status', 'completed')
     .order('created_at', { ascending: false })
 
-  const openTasks = (tasksRaw ?? []).map((t) => ({ id: t.id, title: t.mail_subject }))
+  const openTasks = (tasksRaw ?? []).map((t) => ({
+    id: t.id,
+    title: t.mail_subject,
+    assignee: (t.team_members as unknown as { full_name: string } | null)?.full_name ?? null,
+  }))
 
   const { data: membersRaw } = await supabase
     .from('team_members')

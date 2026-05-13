@@ -18,8 +18,8 @@ const urgencyConfig: Record<string, { label: string; cls: string }> = {
   critical: { label: 'Critical', cls: 'bg-red-50 text-red-700 ring-red-200' },
 }
 
-function formatDeadline(deadline: string | null): string {
-  if (!deadline) return 'No deadline'
+function formatDeadline(deadline: string | null): string | null {
+  if (!deadline) return null
   const d = new Date(deadline)
   const now = new Date()
   const diff = Math.ceil((d.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
@@ -55,9 +55,11 @@ export default function TaskCard({ task }: { task: Task }) {
             </span>
           )}
         </div>
-        <span className="text-xs text-gray-400 shrink-0 whitespace-nowrap">
-          {formatDeadline(task.deadline)}
-        </span>
+        {formatDeadline(task.deadline) && (
+          <span className="text-xs text-gray-400 shrink-0 whitespace-nowrap">
+            {formatDeadline(task.deadline)}
+          </span>
+        )}
       </div>
 
       <div>

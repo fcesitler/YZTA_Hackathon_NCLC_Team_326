@@ -34,8 +34,8 @@ const statusConfig: Record<string, { label: string; cls: string }> = {
   completed: { label: 'Completed', cls: 'bg-emerald-100 text-emerald-700' },
 }
 
-function formatDeadline(deadline: string | null): string {
-  if (!deadline) return 'No deadline'
+function formatDeadline(deadline: string | null): string | null {
+  if (!deadline) return null
   const d = new Date(deadline)
   const diff = Math.ceil((d.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
   const formatted = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
@@ -125,7 +125,9 @@ function TaskRow({ task }: { task: Task }) {
     <div className="flex items-start gap-3 rounded-xl border border-gray-100 bg-gray-50/50 p-3">
       <div className="flex-1 min-w-0">
         <p className="text-sm text-gray-800 font-medium leading-snug">{task.mail_subject}</p>
-        <p className="text-xs text-gray-400 mt-0.5">{formatDeadline(task.deadline)}</p>
+        {formatDeadline(task.deadline) && (
+          <p className="text-xs text-gray-400 mt-0.5">{formatDeadline(task.deadline)}</p>
+        )}
       </div>
       <div className="flex flex-col items-end gap-1.5 shrink-0">
         <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ring-1 ring-inset ${urgency.cls}`}>

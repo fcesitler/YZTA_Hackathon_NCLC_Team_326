@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react'
 import { reassignTask } from '@/app/admin/actions'
 
-interface Task { id: string; title: string }
+interface Task { id: string; title: string; assignee?: string | null }
 interface Member { id: string; full_name: string }
 
 const selectCls = 'w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-800 focus:border-violet-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-violet-100 transition-all'
@@ -35,7 +35,7 @@ export default function AssignOverride({ tasks, members }: { tasks: Task[]; memb
         <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Task</label>
         <select value={selectedTask} onChange={(e) => setSelectedTask(e.target.value)} className={selectCls}>
           <option value="">Select a task…</option>
-          {tasks.map((t) => <option key={t.id} value={t.id}>{t.title}</option>)}
+          {tasks.map((t) => <option key={t.id} value={t.id}>{t.title}{t.assignee ? ` — ${t.assignee}` : ''}</option>)}
         </select>
       </div>
 
