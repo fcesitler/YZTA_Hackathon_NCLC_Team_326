@@ -27,9 +27,9 @@ async function getContext(): Promise<string> {
   }).join('\n')
 
   const memberLines = (members ?? []).map((m) => {
-    const dept = (m.departments as { name: string } | null)?.name ?? 'N/A'
+    const dept = (m.departments as unknown as { name: string } | null)?.name ?? 'N/A'
     const openCount = (tasks ?? []).filter(
-      (t) => (t.team_members as { full_name: string } | null)?.full_name === m.full_name && t.status !== 'completed'
+      (t) => (t.team_members as unknown as { full_name: string } | null)?.full_name === m.full_name && t.status !== 'completed'
     ).length
     return `- ${m.full_name} (${dept}) — ${openCount} open task(s)`
   }).join('\n')
