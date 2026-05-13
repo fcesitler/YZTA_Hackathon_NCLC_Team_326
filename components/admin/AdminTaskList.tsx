@@ -104,7 +104,7 @@ export default function AdminTaskList({ tasks, departments }: { tasks: AdminTask
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-100 bg-gray-50/50">
-              {['Task', 'Assignee', 'Department', 'Urgency', 'Status', 'Deadline'].map((h) => (
+              {['Task', 'Assignee', 'Department', 'Urgency', 'Status'].map((h) => (
                 <th key={h} className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-400">
                   {h}
                 </th>
@@ -114,7 +114,7 @@ export default function AdminTaskList({ tasks, departments }: { tasks: AdminTask
           <tbody>
             {paginated.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-12 text-center text-gray-400 text-sm">No tasks found.</td>
+                <td colSpan={5} className="px-4 py-12 text-center text-gray-400 text-sm">No tasks found.</td>
               </tr>
             ) : (
               paginated.map((task, i) => (
@@ -135,7 +135,6 @@ export default function AdminTaskList({ tasks, departments }: { tasks: AdminTask
                       {statusConfig[task.status]?.label ?? task.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-gray-400 text-xs whitespace-nowrap">{formatDeadline(task.deadline)}</td>
                 </tr>
               ))
             )}
